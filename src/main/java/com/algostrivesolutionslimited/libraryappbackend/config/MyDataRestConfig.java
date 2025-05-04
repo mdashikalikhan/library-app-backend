@@ -1,14 +1,16 @@
 package com.algostrivesolutionslimited.libraryappbackend.config;
 
 import com.algostrivesolutionslimited.libraryappbackend.entity.BookEntity;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
+@Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
-    private String theAllowedOrigins = "http://localhost:3000"
+    private String theAllowedOrigins = "http://localhost:3000";
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
@@ -24,6 +26,13 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
 
         disableHttpMethods(BookEntity.class, config, unsupportedMethods);
+
+        /**
+         * Configure CORS origin
+         */
+
+        cors.addMapping(config.getBasePath() + "/**")
+                .allowedOrigins(theAllowedOrigins);
 
 
     }
