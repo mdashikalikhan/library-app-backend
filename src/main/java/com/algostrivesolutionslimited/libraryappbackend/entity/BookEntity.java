@@ -32,7 +32,7 @@ public class BookEntity {
     @Column(name = "category")
     private String category;
 
-    @JsonIgnore
+
     @Column(name = "img", length = 6000)
     private String image;
 
@@ -62,5 +62,9 @@ public class BookEntity {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getImage() {
+        return image;
     }
 }
