@@ -12,4 +12,5 @@ public interface BookDao extends JpaRepository<BookEntity, Long> {
 
     Page<BookEntity> findByTitleContaining(@RequestParam("title") String title, Pageable pageable);
 
+    Page<BookEntity> findByCategoryContaining(@RequestParam("category") String category, Pageable pageable);
 }
