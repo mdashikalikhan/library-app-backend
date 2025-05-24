@@ -1,6 +1,7 @@
 package com.algostrivesolutionslimited.libraryappbackend.config;
 
 import com.algostrivesolutionslimited.libraryappbackend.entity.BookEntity;
+import com.algostrivesolutionslimited.libraryappbackend.entity.ReviewEntity;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -22,10 +23,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
                 HttpMethod.PATCH,
                 HttpMethod.DELETE
         };
-        config.exposeIdsFor(BookEntity.class);
+        config.exposeIdsFor(BookEntity.class, ReviewEntity.class);
 
 
         disableHttpMethods(BookEntity.class, config, unsupportedMethods);
+
+        disableHttpMethods(ReviewEntity.class, config, unsupportedMethods);
 
         /**
          * Configure CORS origin
@@ -37,12 +40,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
     }
 
-    private void disableHttpMethods(Class<BookEntity> bookEntityClass,
+    private void disableHttpMethods(Class entityClass,
                                     RepositoryRestConfiguration config,
                                     HttpMethod[] unsupportedMethods) {
 
         config.getExposureConfiguration()
-                .forDomainType(bookEntityClass)
+                .forDomainType(entityClass)
                 .withItemExposure(((metdata, httpMethods) ->
                         httpMethods.disable(unsupportedMethods)))
                 .withCollectionExposure(((metdata, httpMethods) ->
