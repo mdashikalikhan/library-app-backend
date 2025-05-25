@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public interface ReviewDao extends JpaRepository<ReviewEntity, Long> {
 
-    Page<ReviewEntity> findReviewById(@RequestParam("review_id") long reviewId, Pageable pageable);
+    Page<ReviewEntity> findByBookId(@RequestParam("bookId") long bookId, Pageable pageable);
 }
